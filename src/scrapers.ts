@@ -7,8 +7,8 @@ import { Path, Level, Project } from './types';
  * @returns List of projects for a given level
  */
 async function scrapeProjects(levelHandle: ElementHandle<HTMLDivElement>): Promise<Project[]> {
-    const mandatoryProjects: Project[] = await levelHandle.$$eval('ul.Bg-Layout > li', function (els: HTMLLIElement[]) {
-        return els.map(function (el: HTMLLIElement, i: number) {
+    const mandatoryProjects: Project[] = await levelHandle.$$eval('ul.Bg-Layout > li', function(els: HTMLLIElement[]) {
+        return els.map(function(el: HTMLLIElement, i: number) {
             return {
                 order: i + 1,
                 name: el.innerText.trim(),
@@ -17,8 +17,8 @@ async function scrapeProjects(levelHandle: ElementHandle<HTMLDivElement>): Promi
         });
     });
 
-    const electiveProjects: Project[] = await levelHandle.$$eval('div.collapse ul li', function (els: HTMLLIElement[]) {
-        return els.map(function (el: HTMLLIElement) {
+    const electiveProjects: Project[] = await levelHandle.$$eval('div.collapse ul li', function(els: HTMLLIElement[]) {
+        return els.map(function(el: HTMLLIElement) {
             return {
                 name: el.innerText.trim(),
                 elective: true
@@ -45,7 +45,7 @@ async function scrapeLevels(page: Page, pathUrl: string): Promise<Level[]> {
     for (const levelHandle of levelHandles) {
         const name = await levelHandle.$eval('h5', (el: HTMLHeadingElement) => el.innerText);
 
-        const levelNumber: number = await levelHandle.$eval('img', function (el: HTMLImageElement) {
+        const levelNumber: number = await levelHandle.$eval('img', function(el: HTMLImageElement) {
             const imageSrc = el.src;
             const imageAlt = el.alt;
             let matches = /level-(\d)/i.exec(imageSrc);
@@ -63,9 +63,9 @@ async function scrapeLevels(page: Page, pathUrl: string): Promise<Level[]> {
 
         let numberOfElectives = 0;
 
-        const electiveHandle:  ElementHandle<HTMLParagraphElement> | null = await levelHandle.$('div.collapse p');
+        const electiveHandle: ElementHandle<HTMLParagraphElement> | null = await levelHandle.$('div.collapse p');
         if (electiveHandle) {
-            numberOfElectives = await electiveHandle.evaluate(function (el: HTMLParagraphElement) {
+            numberOfElectives = await electiveHandle.evaluate(function(el: HTMLParagraphElement) {
                 const matches = /(\d)/.exec(el.innerText);
                 if (matches && matches[1]) {
                     return parseInt(matches[1]);
