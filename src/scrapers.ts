@@ -1,7 +1,12 @@
 import puppeteer, { Browser, Page, ElementHandle } from 'puppeteer-core';
 import { Path, Level, Project } from './types';
 
-export async function scrapeProjects(levelHandle: ElementHandle<HTMLDivElement>): Promise<Project[]> {
+/**
+ * A scrape function that scrapes all the projects given a level (from an element handle).
+ * @param levelHandle Level handle that should be scraped from
+ * @returns List of projects for a given level
+ */
+async function scrapeProjects(levelHandle: ElementHandle<HTMLDivElement>): Promise<Project[]> {
     const mandatoryProjects: Project[] = await levelHandle.$$eval('ul.Bg-Layout > li', function (els: HTMLLIElement[]) {
         return els.map(function (el: HTMLLIElement, i: number) {
             return {
@@ -24,7 +29,13 @@ export async function scrapeProjects(levelHandle: ElementHandle<HTMLDivElement>)
     return mandatoryProjects.concat(electiveProjects);
 }
 
-export async function scrapeLevels(page: Page, pathUrl: string): Promise<Level[]> {
+/**
+ * A scrape function that scrapes all the levels given a path url.
+ * @param page Page instance to open the path url
+ * @param pathUrl Path url to scrape from
+ * @returns List of levels for a given path
+ */
+async function scrapeLevels(page: Page, pathUrl: string): Promise<Level[]> {
     const levels: Level[] = [];
 
     await page.goto(pathUrl);
@@ -79,7 +90,12 @@ export async function scrapeLevels(page: Page, pathUrl: string): Promise<Level[]
     return levels;
 }
 
-export async function scrapePaths(browser: Browser): Promise<Path[]> {
+/**
+ * A scrape function that scrapes all the paths from the toastmasters pathways page.
+ * @param browser Browser instance to use for opening urls
+ * @returns List of path
+ */
+async function scrapePaths(browser: Browser): Promise<Path[]> {
     const paths: Path[] = [];
     let page: Page | undefined = undefined;
 
@@ -126,6 +142,9 @@ export async function scrapePaths(browser: Browser): Promise<Path[]> {
     return paths;
 }
 
+/**
+ * A global function that scrapes the toastmasters website for the various information needed.
+ */
 export async function scrapeToastmasters(): Promise<void> {
     let browser: Browser | undefined = undefined;
 
