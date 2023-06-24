@@ -4,7 +4,13 @@ import { connectDb, closeDb } from './database/connection';
 import pathwayRouter from './routers/pathway.router';
 
 const app = express();
-const port = 3000;
+const port = function (): number {
+    const portEnv = process.env['PORT'];
+    if (!portEnv) {
+        return 3000;
+    }
+    return parseInt(portEnv);
+}();
 
 app.use(actuator({
     basePath: '/actuator'
