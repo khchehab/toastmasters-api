@@ -1,10 +1,14 @@
 import express from 'express';
+import actuator from 'express-actuator';
 import { connectDb, closeDb } from './database/connection';
 import pathwayRouter from './routers/pathway.router';
 
 const app = express();
 const port = 3000;
 
+app.use(actuator({
+    basePath: '/actuator'
+}));
 app.use('/paths', pathwayRouter);
 
 app.listen(port, function () {

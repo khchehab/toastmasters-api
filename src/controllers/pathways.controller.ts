@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Path, Level, Project } from '../types/pathways.type';
 import { IPath, PathModel, LevelModel, ProjectModel } from '../models/pathways.model';
+import { scrapePaths } from '../scrapers/pathways.scraper';
 
 function convertPathModelToPath(pathModel: IPath): Path {
     return {
@@ -22,7 +23,7 @@ function convertPathModelToPath(pathModel: IPath): Path {
     };
 }
 
-export async function saveAllPaths(paths: Path[]) {
+async function saveAllPaths(paths: Path[]) {
     await ProjectModel.deleteMany({});
     await LevelModel.deleteMany({});
     await PathModel.deleteMany({});
@@ -57,6 +58,15 @@ export async function saveAllPaths(paths: Path[]) {
 
         await pathDocument.save();
     }
+}
+
+export async function updatePaths(_: Request<{}, {}, {}>, res: Response<{ status: string; }>) {
+    const paths = await scrapePaths();
+    await saveAllPaths(paths);
+
+    res.status(200).send({
+        status: 'success'
+    });
 }
 
 export async function findPathByName(req: Request<{ name: string; }>, res: Response<Path | { message: string; }>) {
