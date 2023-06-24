@@ -9,7 +9,7 @@ const port = 3000;
 app.use(actuator({
     basePath: '/actuator'
 }));
-app.use('/paths', pathwayRouter);
+app.use('/api/paths', pathwayRouter);
 
 app.listen(port, function () {
     async function connect() {
