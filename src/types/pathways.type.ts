@@ -4,7 +4,7 @@
 export interface Project {
     name: string;
     elective: boolean;
-    order?: number;
+    order: number | undefined;
 }
 
 /**
