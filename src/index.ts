@@ -1,6 +1,7 @@
 import express from 'express';
-import actuator from 'express-actuator';
 import { connectDb, closeDb } from './database/connection';
+import apiDocRouter from './routers/api-doc.router';
+import actuatorRouter from './routers/actuator.router';
 import pathwayRouter from './routers/pathway.router';
 
 const app = express();
@@ -12,10 +13,9 @@ const port = function (): number {
     return parseInt(portEnv);
 }();
 
-app.use(actuator({
-    basePath: '/actuator'
-}));
-app.use('/api/paths', pathwayRouter);
+app.use('/api-docs', apiDocRouter);
+app.use(actuatorRouter);
+app.use('/api/v1/paths', pathwayRouter);
 
 app.listen(port, function () {
     async function connect() {
