@@ -91,14 +91,21 @@ export async function findPathByName(req: Request<{ name: string; }>, res: Respo
     res.status(200).send(convertPathModelToPath(pathModel));
 }
 
-export async function findAllPaths(_: Request<{}>, res: Response<Path[]>) {
-    const pathModels: IPath[] = await PathModel.find({})
-        .populate({
-            path: 'levels',
-            populate: {
-                path: 'projects'
-            }
-        });
+export async function findAllPaths(_: Request<{}>, res: Response<Path[] | { message: string; }>) {
+    try {
+        const pathModels: IPath[] = await PathModel.find({})
+            .populate({
+                path: 'levels',
+                populate: {
+                    path: 'projects'
+                }
+            });
 
-    res.status(200).send(pathModels.map(convertPathModelToPath));
+        res.status(200)
+            .send(pathModels.map(convertPathModelToPath));
+    } catch (error) {
+        res.status(500).json({
+            message: `An error has occurred: ${error}`
+        });
+    }
 }
