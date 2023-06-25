@@ -1,44 +1,18 @@
 import express, { Request, Response } from 'express';
-import { connectDb, closeDb } from './database/connection';
-import apiDocRouter from './routers/api-doc.router';
-import actuatorRouter from './routers/actuator.router';
-import apiV1Router from './api/v1';
 
 const app = express();
-const port = function (): number {
-    const portEnv = process.env['PORT'];
-    if (!portEnv) {
-        return 3000;
-    }
-    return parseInt(portEnv);
-}();
+const port = 4000;
 
-app.get('/', function (_: Request<{}>, res: Response<{ message: string; }>) {
-    res.status(200).send({
-        message: 'Welcome to Toastmasters API'
-    });
+app.get('/', (_: Request, res: Response) => {
+    res.send('Hey this is my API running 🥳');
 });
 
-app.use('/api-docs', apiDocRouter);
-app.use(actuatorRouter);
-
-app.use('/api/v1', apiV1Router);
-
-app.listen(port, function () {
-    async function connect() {
-        await connectDb();
-        console.log(`🚀 Server has started on port ${port}`);
-    }
-
-    connect();
+app.get('/about', (_: Request, res: Response) => {
+    res.send('This is my about route...');
 });
 
-async function stopServer() {
-    await closeDb();
-    console.log('❎ Server has stopped');
-    process.exit(0);
-}
-
-process.on('SIGINT', function () {
-    stopServer();
+app.listen(port, () => {
+    console.log(`Server started on port ${port}`);
 });
+
+export default app;
