@@ -7,7 +7,8 @@ export async function connectDb(): Promise<void> {
     }
     await connect(mongoUri, {
         retryWrites: true,
-        w: 'majority'
+        w: 'majority',
+        maxPoolSize: 10
     });
 }
 
