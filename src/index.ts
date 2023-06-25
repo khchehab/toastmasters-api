@@ -28,15 +28,16 @@ app.use(actuatorRouter);
 app.use('/api/v1', apiV1Router);
 
 app.listen(port, function () {
-    async function connect() {
-        await connectDb();
-        console.log(`🚀 Server has started on port ${port}`);
-    }
-
-    connect();
+    console.log(`🚀 Server has started on port ${port}`);
 });
 
+connect();
+
 export default app;
+
+async function connect() {
+    await connectDb();
+}
 
 async function stopServer() {
     await closeDb();
