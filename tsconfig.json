@@ -12,7 +12,7 @@
       "dom"
     ],
     "module": "commonjs",
-    "outDir": "dist",
+    "outDir": "build",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
