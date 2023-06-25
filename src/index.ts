@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { connectDb, closeDb } from './database/connection';
 import apiDocRouter from './routers/api-doc.router';
 import actuatorRouter from './routers/actuator.router';
@@ -12,6 +13,8 @@ const port = function (): number {
     }
     return parseInt(portEnv);
 }();
+
+app.use(cors());
 
 app.get('/', function (_: Request<{}>, res: Response<{ message: string; }>) {
     res.status(200).send({
