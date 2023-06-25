@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { connectDb, closeDb } from './database/connection';
 import apiDocRouter from './routers/api-doc.router';
 import actuatorRouter from './routers/actuator.router';
@@ -16,6 +16,12 @@ const port = function (): number {
 app.use('/api-docs', apiDocRouter);
 app.use(actuatorRouter);
 app.use('/api/v1/paths', pathwayRouter);
+
+app.get('/', function (_: Request<{}>, res: Response<{ message: string; }>) {
+    res.status(200).send({
+        message: 'Welcome to Toastmasters API'
+    });
+});
 
 app.listen(port, function () {
     async function connect() {
