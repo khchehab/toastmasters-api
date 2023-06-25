@@ -19,17 +19,6 @@ app.get('/', function (_: Request<{}>, res: Response<{ message: string; }>) {
     });
 });
 
-app.get('/envs', function (_: Request<{}>, res: Response<{ [key: string]: string | undefined; }>) {
-    res.status(200).send({
-        mongoDBUri: process.env['MONGODB_URI'],
-        port: process.env['PORT'],
-        dbUsername: process.env['DB_USERNAME'],
-        dbPassword: process.env['DB_PASSWORD'],
-        dbName: process.env['DB_NAME'],
-        dbHost: process.env['DB_HOST']
-    });
-});
-
 app.use('/api-docs', apiDocRouter);
 app.use(actuatorRouter);
 
