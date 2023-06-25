@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { connectDb, closeDb } from './database/connection';
 import apiDocRouter from './routers/api-doc.router';
 import actuatorRouter from './routers/actuator.router';
-import pathwayRouter from './routers/pathway.router';
+import apiV1Router from './api/v1';
 
 const app = express();
 const port = function (): number {
@@ -13,15 +13,16 @@ const port = function (): number {
     return parseInt(portEnv);
 }();
 
-app.use('/api-docs', apiDocRouter);
-app.use(actuatorRouter);
-app.use('/api/v1/paths', pathwayRouter);
-
 app.get('/', function (_: Request<{}>, res: Response<{ message: string; }>) {
     res.status(200).send({
         message: 'Welcome to Toastmasters API'
     });
 });
+
+app.use('/api-docs', apiDocRouter);
+app.use(actuatorRouter);
+
+app.use('/api/v1', apiV1Router);
 
 app.listen(port, function () {
     async function connect() {

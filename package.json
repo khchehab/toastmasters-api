@@ -11,8 +11,7 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "start:dev": "ts-node -r dotenv/config src/index.ts",
-    "vercel-build": "echo hello"
+    "start:dev": "ts-node -r dotenv/config src/index.ts"
   },
   "keywords": [],
   "author": "Khaled Chehab <khchehab@gmail.com> (https://github.com/khchehab)",
