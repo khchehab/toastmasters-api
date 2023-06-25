@@ -2,7 +2,7 @@
   "name": "toastmasters-api",
   "version": "1.0.0",
   "private": true,
-  "description": "An API that retrieve public information from the Toastmasters website",
+  "description": "An API that retrieves public information from the Toastmasters website",
   "homepage": "https://github.com/khchehab/toastmasters-api/blob/main/README.md",
   "bugs": {
     "url": "https://github.com/khchehab/toastmasters-api/issues"
