@@ -5,7 +5,10 @@ export async function connectDb(): Promise<void> {
     if (!mongoUri) {
         mongoUri = `mongodb+srv://${process.env['DB_USERNAME']}:${process.env['DB_PASSWORD']}@${process.env['DB_HOST']}/${process.env['DB_NAME']}`;
     }
-    await connect(mongoUri);
+    await connect(mongoUri, {
+        retryWrites: true,
+        w: 'majority'
+    });
 }
 
 export async function closeDb(): Promise<void> {
