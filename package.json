@@ -9,8 +9,7 @@
   },
   "main": "src/index.ts",
   "scripts": {
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js",
+    "build-vercel": "echo Building with Vercel",
     "start:dev": "ts-node -r dotenv/config src/index.ts"
   },
   "keywords": [],

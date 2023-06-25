@@ -33,6 +33,8 @@ app.listen(port, function () {
     connect();
 });
 
+export default app;
+
 async function stopServer() {
     await closeDb();
     console.log('❎ Server has stopped');
