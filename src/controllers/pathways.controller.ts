@@ -105,7 +105,7 @@ export async function findAllPaths(_: Request<{}>, res: Response<Path[] | { mess
             .send(pathModels.map(convertPathModelToPath));
     } catch (error) {
         res.status(500).json({
-            message: `An error has occurred: ${error}`
+            message: `An error has occurred:  ${error}`
         });
     }
 }
