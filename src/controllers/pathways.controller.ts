@@ -93,6 +93,11 @@ export async function findPathByName(req: Request<{ name: string; }>, res: Respo
 
 export async function findAllPaths(_: Request<{}>, res: Response<Path[] | { message: string; }>) {
     try {
+        if (process.env['MONGODB_URI']) {
+            res.status(200).json({ message: 'hello world!' });
+            return;
+        }
+
         const pathModels: IPath[] = await PathModel.find({})
             .populate({
                 path: 'levels',
