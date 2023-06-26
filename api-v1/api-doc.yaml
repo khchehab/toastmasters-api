@@ -6,6 +6,8 @@ info:
 servers:
   - url: http://localhost:3000/api/v1
     description: The localhost url
+  - url: https://toastmasters-api.vercel.app/api/v1
+    description: The deployed API on Vercel
 tags:
   - name: Pathway API
     description: Pathway endpoints
