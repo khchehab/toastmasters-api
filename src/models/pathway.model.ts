@@ -1,5 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
-import { Path, Level, Project } from '../types/pathways.type';
+import { Path, Level, Project } from '../types/pathway.type';
 
 const ProjectSchema = new Schema({
     name: {

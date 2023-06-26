@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findAllPaths, findPathByName, updatePaths } from '../controllers/pathways.controller';
+import { findAllPaths, findPathByName, updatePaths } from '../controllers/pathway.controller';
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Path, Level, Project } from '../types/pathways.type';
-import { IPath, PathModel, LevelModel, ProjectModel } from '../models/pathways.model';
-import { scrapePaths } from '../scrapers/pathways.scraper';
+import { Path, Level, Project } from '../types/pathway.type';
+import { IPath, PathModel, LevelModel, ProjectModel } from '../models/pathway.model';
+import { scrapePaths } from '../scrapers/pathway.scraper';
 
 function convertPathModelToPath(pathModel: IPath): Path {
     return {
