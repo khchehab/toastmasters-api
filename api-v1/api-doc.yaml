@@ -6,9 +6,15 @@ info:
 servers:
   - url: http://localhost:3000/api/v1
     description: The localhost url
+  - url: https://toastmasters-api.vercel.app/api/v1
+    description: The deployed API on Vercel
 tags:
   - name: Pathway API
     description: Pathway endpoints
+  - name: Role API
+    description: Role endpoints
+  - name: Cabinet Role API
+    description: Cabinet role endpoints
 components:
   schemas:
     Project:
@@ -56,6 +62,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Level'
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The role's name
+          example: Toastmaster of the Evening
+        abbreviation:
+          type: string
+          description: The role's abbreviation
+          example: TME
+    CabinetRole:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The cabinet role's name
+          example: Vice President of Education
+        abbreviation:
+          type: string
+          description: The cabinet role's abbreviation
+          example: VPE
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          description: The status of the operation
+          example: success
     Error:
       type: object
       properties:
@@ -80,6 +115,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Path'
+  /paths/update:
+    post:
+      tags:
+        - Pathway API
+      summary: Update the pathways
+      description: Update the pathways from the official Toastmasters website
+      operationId: updatePaths
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
   /paths/{name}:
     get:
       tags:
@@ -107,3 +156,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /roles:
+    get:
+      tags:
+        - Role API
+      summary: Get all roles
+      description: Get all roles that can be present in a roster
+      operationId: findAllRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+  /roles/update:
+    post:
+      tags:
+        - Role API
+      summary: Update the roles
+      description: Update the roles with updated values
+      operationId: updateRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+  /cabinet-roles:
+    get:
+      tags:
+        - Cabinet Role API
+      summary: Get all cabinet roles
+      description: Get all cabinet roles that can be present in a cabinet
+      operationId: findAllCabinetRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CabinetRole'
+  /cabinet-roles/update:
+    post:
+      tags:
+        - Cabinet Role API
+      summary: Update the cabinet roles
+      description: Update the cabinet roles with updated values
+      operationId: updateCabinetRoles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'

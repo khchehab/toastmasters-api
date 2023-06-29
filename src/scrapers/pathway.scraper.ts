@@ -1,4 +1,4 @@
-import { Path, Level, Project } from '../types/pathways.type';
+import { Path, Level, Project } from '../types/pathway.type';
 
 const TOASTMASTERS_BASE_URL = 'https://www.toastmasters.org';
 const PATHWAYS_URL = 'https://www.toastmasters.org/Education/Pathways/Pathways%20Paths%20and%20Projects';
